@@ -9,10 +9,23 @@ import { Observable } from 'rxjs';
 export class CarService {
 
   constructor(private httpClient:HttpClient) { }
-  apiUrl:string ="https://localhost:7102/api/Cars/GetCarDetails";
+  apiUrl:string ="https://localhost:7102/api/";
 
   getCars(): Observable<CarResponseModel>{
+    let newPath =this.apiUrl+"Cars/GetCarDetails"
    return this.httpClient
-    .get<CarResponseModel>(this.apiUrl);
+    .get<CarResponseModel>(newPath);
+  }
+
+  getCarsByBrandId(brandId:number):Observable<CarResponseModel>{
+    let newPath =this.apiUrl+"Cars/GetAllByBrandId?id="+brandId
+    return this.httpClient
+    .get<CarResponseModel>(newPath);
+  }
+
+  getCarsByColorId(colorId:number):Observable<CarResponseModel>{
+    let newPath =this.apiUrl+"Cars/GetAllByColorId?id="+colorId
+    return this.httpClient
+    .get<CarResponseModel>(newPath);
   }
 }

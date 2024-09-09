@@ -1,20 +1,16 @@
 <div class="container">
+  
   <div class="row">
-    <app-brand></app-brand>
+    <div class="col-md-4">
+      <app-brand></app-brand>
+      <app-color></app-color>
+    </div>
+    
+    <div class="col-md-8">
+      <router-outlet/>
+    </div>
   </div>
-  <div class="row">
-    <app-car></app-car>
-  </div>
-  <div class="row">
-    <app-color></app-color>
-  </div>
-  <div class="row">
-    <app-rental></app-rental>
-  </div>
-  <div class="row">
-    <app-user></app-user>
-  </div>
-  <router-outlet/>
+  
 </div>
 
 

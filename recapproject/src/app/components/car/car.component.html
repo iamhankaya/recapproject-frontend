@@ -7,7 +7,9 @@
         <th>Daily Price</th>
         <th>Model Year</th>
     </thead>
-    <tr *ngFor="let car of cars">
+    <tr routerLink="/cars/images/+{{car.id}}" 
+        (click)="setCurrentCar(car)"
+    *ngFor="let car of cars">
         <td>{{car.id}}</td>
         <td>{{car.brandName}}</td>
         <td>{{car.colorName}}</td>
