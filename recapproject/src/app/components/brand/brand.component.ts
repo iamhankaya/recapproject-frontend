@@ -2,7 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Brand } from '../../models/brand';
 import { BrandService } from '../../services/brand.service';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-brand',
@@ -13,8 +13,8 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class BrandComponent implements OnInit{
   brands:Brand[]=[];
-  currentBrand:Brand | null=null
-  constructor(private brandService:BrandService){
+  currentBrand:string | null=null
+  constructor(private brandService:BrandService,private router:Router){
 
   }
 
@@ -29,19 +29,18 @@ export class BrandComponent implements OnInit{
     })
   }
 
-  setCurrentBrand(brand:Brand){
-    this.currentBrand=brand;
-    console.log(brand.brandId)
+  setCurrentBrand(brandId:string){
+    this.currentBrand = brandId;
   }
 
-  getCurrentBrandClass(brand:Brand){
-    if(brand==this.currentBrand){
-      return "list-group-item active"
-    }
-    else{
-      return "list-group-item";
-    }
-  }
+  // getCurrentBrandClass(brand:Brand){
+  //   if(brand==this.currentBrand){
+  //     return "list-group-item active"
+  //   }
+  //   else{
+  //     return "list-group-item";
+  //   }
+  // }
 
   getAllBrandClass(){
     if(!this.currentBrand){
@@ -52,7 +51,19 @@ export class BrandComponent implements OnInit{
     }
   }
 
-  empyyCurrentBrand(){
+  emptyCurrentBrand(){
     this.currentBrand=null;
+  }
+
+  onBrandChange(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+
+    if (selectedValue === '0') {
+      this.emptyCurrentBrand(); // "Hepsini göster" seçeneği için çağrılacak işlev
+      this.router.navigate(['/cars']);
+    } else if (selectedValue) {
+      this.setCurrentBrand(selectedValue); // Seçili rengi ayarlayın
+      this.router.navigate(['/cars/brand', selectedValue]); // Angular yönlendirmesi
+    }
   }
 }

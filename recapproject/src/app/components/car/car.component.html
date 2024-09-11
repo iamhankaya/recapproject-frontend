@@ -1,20 +1,52 @@
-<table class="table">
-    <thead>
-        <th>Id</th>
-        <th>Brand Name</th>
-        <th>Color Name</th>
-        <th>Description</th>
-        <th>Daily Price</th>
-        <th>Model Year</th>
-    </thead>
-    <tr routerLink="/cars/images/+{{car.id}}" 
-        (click)="setCurrentCar(car)"
-    *ngFor="let car of cars">
-        <td>{{car.id}}</td>
-        <td>{{car.brandName}}</td>
-        <td>{{car.colorName}}</td>
-        <td>{{car.description}}</td>
-        <td>{{car.dailyPrice}}</td>
-        <td>{{car.modelYear}}</td>
-    </tr>
-</table>
+<div *ngIf="!isShowCarDetail" class="Gozuken kisim">
+    <div class="mb-3">
+        <label for="filterText" class="form-label">Ürün ara</label>
+        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
+            placeholder="arama ifadesi giriniz.">
+    </div>
+
+    <div *ngIf="filterText" class="alert alert-warning">
+        {{filterText}} aradınız.
+    </div>
+    <div class="Selectors">
+        <app-color></app-color>
+        <app-brand></app-brand>
+    </div>
+
+    <table class="table">
+        <thead>
+            <th>Id</th>
+            <th>Brand Name</th>
+            <th>Color Name</th>
+            <th>Description</th>
+            <th>Daily Price</th>
+            <th>Model Year</th>
+        </thead>
+        <tr routerLink="/cars/images/{{car.id}}" *ngFor="let car of cars |carFilter:filterText">
+            <td>{{car.id}}</td>
+            <td>{{car.brandName}}</td>
+            <td>{{car.colorName}}</td>
+            <td>{{car.description}}</td>
+            <td>{{car.dailyPrice}}</td>
+            <td>{{car.modelYear}}</td>
+        </tr>
+    </table>
+</div>
+<div *ngIf="isShowCarDetail " class="CarDetail">
+    <app-car-images></app-car-images>
+    <div *ngFor="let car of carDetail">
+        <ul class="list-group">
+            <li class="list-group-item">
+                BrandName: {{car.brandName}} <br>
+                ColorName: {{car.colorName}} <br>
+                Description: {{car.description}} <br>
+                ModelYear: {{car.modelYear}} <br>
+                DailyPrice: {{car.dailyPrice}} <br>
+            </li>
+        </ul>
+        <button class="button" (click)="hideCarDetail()" routerLink="/cars" type="button">Ana Sayfa</button>
+        <button class="button" *ngIf="!isRented" (click)="rentCar(car)">Kirala</button>
+        <button class="button" *ngIf="isRented" (click)="returnCar(car)">Geri iade</button>
+    </div>
+
+</div>

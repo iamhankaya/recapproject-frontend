@@ -1,15 +1,9 @@
-<ul class="list-group">
-    <li
-    routerLink="/cars"
-    (click)="emptyCurrentColor()"
-    [class]="getAllColorClass()">
+
+
+<select class="form-select" aria-label="Default select example"(change)="onColorChange($event)" >
+    <option selected >Renk seçiniz</option>
+    <option  value="0">Hepsini goster</option>
+    <option 
+    *ngFor="let color of colors" [value]="color.colorId">{{color.colorName}}</option>
     
-        Tüm renkleri göster
-    </li>
-    <li [class]="getCurrentColorClass(color)"
-        (click)="setCurrentColor(color)"
-        routerLink="/cars/color/{{color.colorId}}"
-    *ngFor="let color of colors">
-        {{color.colorName}}
-    </li>
-</ul>
+</select>

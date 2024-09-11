@@ -1,16 +1,33 @@
-
-<div id="carouselExample" class="carousel slide">
-    <div class="carousel-inner">
-      <div  *ngFor="let carImage of carImages" 
-      class="carousel-item active">
-        <img [src]="getImagePath(carImage)" style="height: auto; width: 200px;" alt="...">
+<!-- <div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div [class] ="getCurrentImage(carImage)" *ngFor="let carImage of carImages">
+      <img  [src]="getImagePath(carImage)" style="height: 400px; width: 300px;"
+        alt="...">
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <button (click)="previousButton()" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+      <span class="visually-hidde">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <button (click)="nextButton()" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+  </div> -->
+
+  <div id="carouselExample" class="carousel slide" style="height: 400px; width: 400px;">
+    <div class="carousel-inner">
+      <div [class]="getCurrentImage(carImage)" *ngFor="let carImage of carImages">
+        <img id="image" [src]="getImagePath(carImage)" style="height: 400px; width: 400px;" alt="...">
+      </div>
+    </div>
+    <!-- Butonlar carousel-inner dışında olmalı -->
+    <button (click)="previousButton()" class="carousel-control-prev" type="button" data-bs-target="#image" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span> <!-- Düzeltilmiş: visually-hidden -->
+    </button>
+    <button (click)="nextButton()" class="carousel-control-next" type="button" data-bs-target="#image" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span> <!-- Düzeltilmiş: visually-hidden -->
+    </button>
   </div>
+  

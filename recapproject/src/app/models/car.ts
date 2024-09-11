@@ -7,4 +7,5 @@ export interface Car{
     modelYear:number,
     brandId:number,
     colorId:number
+    returnDate:string
 }

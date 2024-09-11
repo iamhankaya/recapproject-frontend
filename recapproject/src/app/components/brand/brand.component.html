@@ -1,12 +1,9 @@
-<ul class="list-group">
-    <li routerLink="/cars"
-        [class]="getAllBrandClass()"
-        (click)="empyyCurrentBrand()" 
-    >Tüm markalari göster</li>
-    <li routerLink="/cars/brand/+{{brand.brandId}}"
-        (click)="setCurrentBrand(brand)" 
-        [class]="getCurrentBrandClass(brand)" 
-    *ngFor="let brand of brands">
-        {{brand.brandName}}
-    </li>
-</ul>
+
+<select class="form-select" aria-label="Default select example" (change)="onBrandChange($event)">
+    <option selected>Marka seçiniz.</option>
+    <option value="0">Hepsini goster</option>
+    <option *ngFor="let brand of brands" 
+    [value]="brand.brandId">{{brand.brandName}}
+    </option>
+    
+</select>
