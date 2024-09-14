@@ -45,7 +45,7 @@ export class CarImagesComponent implements OnInit {
 
   setCurrentImage() {
     if (!this.currentImage) {
-      this.currentImage = this.carImages[1];
+      this.currentImage = this.carImages[0];
     }
   }
 

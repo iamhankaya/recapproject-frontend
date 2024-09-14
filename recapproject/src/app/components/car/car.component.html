@@ -45,7 +45,7 @@
             </li>
         </ul>
         <button class="button" (click)="hideCarDetail()" routerLink="/cars" type="button">Ana Sayfa</button>
-        <button class="button" *ngIf="!isRented" (click)="rentCar(car)">Kirala</button>
+        <button class="button" *ngIf="!isRented" (click)="rentCar(car,4430)">Kirala</button>
         <button class="button" *ngIf="isRented" (click)="returnCar(car)">Geri iade</button>
     </div>
 

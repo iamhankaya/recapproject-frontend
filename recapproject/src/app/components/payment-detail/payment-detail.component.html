@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>CardId</th>
+        <th>CarId</th>
+        <th>Description</th>
+        <th>Payment Amount</th>
+        <th>Payment Date</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let paymentDetail of paymentDetails">
+            <td>{{paymentDetail.id}}</td>
+            <td>{{paymentDetail.cardId}}</td>
+            <td>{{paymentDetail.carId}}</td>
+            <td>{{paymentDetail.description}}</td>
+            <td>{{paymentDetail.paymentAmount}}</td>
+            <td>{{paymentDetail.paymentDate}}</td>
+        </tr>
+    </tbody>
+</table>

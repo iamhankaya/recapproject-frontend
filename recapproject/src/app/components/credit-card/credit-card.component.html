@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>CardId</th>
+        <th>CustomerId</th>
+        <th>cardLimit</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let creditCard of creditCards">
+            <td>{{creditCard.cardId}}</td>
+            <td>{{creditCard.cardNo}}</td>
+            <td>{{creditCard.customerId}}</td>
+            <td>{{creditCard.cardLimit}}</td>
+        </tr>
+    </tbody>
+</table>
