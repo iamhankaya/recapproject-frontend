@@ -17,6 +17,9 @@ export class NaviComponent {
     {element:"Payment Detail" ,url:"/payment-details"},
     {element:"Rental" ,url:"/rentals"},
     {element:"User" ,url:"/users"},
+    {element:"Car-add",url:"/cars/add"},
+    {element:"Brand-add",url:"/brands/add"},
+    {element:"Color-add",url:"/colors/add"}
   ];
 
 }

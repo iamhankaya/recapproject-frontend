@@ -13,28 +13,40 @@ import { Rental } from '../../models/rental';
 import { PaymentDetailService } from '../../services/payment-detail.service';
 import { CreditCard } from '../../models/creditCard';
 import { CreditCardService } from '../../services/credit-card.service';
+import { Brand } from '../../models/brand';
+import { Color } from '../../models/color';
+import { BrandService } from '../../services/brand.service';
+import { ColorService } from '../../services/color.service';
+import { FormGroup, FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-car',
   standalone: true,
-  imports: [NgFor, RouterModule, CarFilterPipe, FormsModule, NgIf, ColorComponent, BrandComponent, CarImagesComponent],
+  imports: [NgFor, RouterModule, CarFilterPipe, FormsModule, NgIf, ColorComponent, BrandComponent, CarImagesComponent,ReactiveFormsModule],
   templateUrl: './car.component.html',
   styleUrl: './car.component.css'
 })
 export class CarComponent implements OnInit {
   cars: Car[] = [];
+  brands:Brand[] = [];
+  colors:Color[] = [];
   carDetail: Car[] = [];
   currentCar: Car | null = null;
   filterText: string = "";
   isShowCarDetail: boolean = false;
+  isUpdate =false;
   isRented: boolean = false;
   creditCard: CreditCard;
+  carUpdateForm:FormGroup;
 
   constructor(private carService: CarService,
     private activatedRoute: ActivatedRoute,
     private rentalService: RentalService,
     private paymentDetailService: PaymentDetailService,
-    private creditCardService: CreditCardService
+    private creditCardService: CreditCardService,
+    private brandService:BrandService,
+    private colorService:ColorService,
+    private formBuilder:FormBuilder
   ) {
 
   }
@@ -42,13 +54,12 @@ export class CarComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       const carId = Number(params["carId"]);
-
       if (carId) {
         this.carService.getCars().subscribe(respone => {
           this.cars = respone.data;
           this.showCarDetail(carId);
           this.checkIsRented(this.carDetail[0]);
-
+          this.createCarAddForm(carId);
         })
       } else {
         // carId mevcut değilse diğer işlemleri yap
@@ -69,6 +80,31 @@ export class CarComponent implements OnInit {
       this.cars = respone.data;
     })
 
+  }
+
+  createCarAddForm(carsId:number) {
+    this.carUpdateForm = this.formBuilder.group({
+      id:[carsId],
+      brandId: [""],
+      colorId: [""],
+      modelYear: [""],
+      dailyPrice: [""],
+      description:[""]
+    });
+
+    console.log('Form Values After Patch:', this.carUpdateForm.value);
+    this.getEntities();
+  }
+
+  getEntities() {
+    this.brandService.getBrands().subscribe(response => {
+      this.brands = response.data;
+      console.log(this.brands);
+    });
+    this.colorService.getColors().subscribe(response => {
+      this.colors = response.data;
+      console.log(this.colors);
+    })
   }
 
   getCarsByColorId(colorId: number) {
@@ -139,5 +175,19 @@ export class CarComponent implements OnInit {
       }, error => {
         console.error('API Hatası:', error);
       });
+  }
+  showUpdate(){
+    this.isUpdate= !this.isUpdate;
+  }
+  update(){
+    console.log(this.carUpdateForm.value);
+    if(this.carUpdateForm.valid){
+      let carModel = Object.assign({}, this.carUpdateForm.value);
+    this.carService.update(carModel).subscribe(resposne=>{
+      console.log("Guncellendi");
+    },responseError=>{
+      console.log(responseError.error.Errors);
+    });
+    }
   }
 }

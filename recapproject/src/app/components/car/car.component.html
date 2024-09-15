@@ -21,32 +21,89 @@
             <th>Description</th>
             <th>Daily Price</th>
             <th>Model Year</th>
+            <th></th>
         </thead>
-        <tr routerLink="/cars/images/{{car.id}}" *ngFor="let car of cars |carFilter:filterText">
+        <tr *ngFor="let car of cars |carFilter:filterText">
             <td>{{car.id}}</td>
             <td>{{car.brandName}}</td>
             <td>{{car.colorName}}</td>
             <td>{{car.description}}</td>
             <td>{{car.dailyPrice}}</td>
             <td>{{car.modelYear}}</td>
+            <td><button routerLink="/cars/images/{{car.id}}" class="btn btn-primary">Guncelle</button></td>
         </tr>
     </table>
 </div>
 <div *ngIf="isShowCarDetail " class="CarDetail">
     <app-car-images></app-car-images>
-    <div *ngFor="let car of carDetail">
-        <ul class="list-group">
-            <li class="list-group-item">
-                BrandName: {{car.brandName}} <br>
-                ColorName: {{car.colorName}} <br>
-                Description: {{car.description}} <br>
-                ModelYear: {{car.modelYear}} <br>
-                DailyPrice: {{car.dailyPrice}} <br>
-            </li>
-        </ul>
-        <button class="button" (click)="hideCarDetail()" routerLink="/cars" type="button">Ana Sayfa</button>
-        <button class="button" *ngIf="!isRented" (click)="rentCar(car,4430)">Kirala</button>
-        <button class="button" *ngIf="isRented" (click)="returnCar(car)">Geri iade</button>
+    <div class="car-detail" *ngFor="let car of carDetail">
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    BrandName: {{car.brandName}} <br>
+                    ColorName: {{car.colorName}} <br>
+                    Description: {{car.description}} <br>
+                    ModelYear: {{car.modelYear}} <br>
+                    DailyPrice: {{car.dailyPrice}} <br>
+                </li>
+            </ul>
+            <button class="btn btn-primary" (click)="hideCarDetail()" routerLink="/cars" type="button">Ana Sayfa</button>
+            <button class="btn btn-primary" *ngIf="!isRented" (click)="rentCar(car,4430)">Kirala</button>
+            <button class="btn btn-primary" *ngIf="isRented" (click)="returnCar(car)">Geri iade</button>
+            <button class="btn btn-primary"  (click)="showUpdate()" >Guncelle</button>
+        </div>
+        <div *ngIf="isUpdate">
+            <form [formGroup]="carUpdateForm">
+                <label for="id">Id</label>
+                <div class="form-group mb-3">
+                    <input 
+                    type="number"
+                    formControlName="id"
+                    id="id"
+                    [placeholder]="car.id"
+                    class="form-control"
+                    >
+                </div>
+                <label for="brandName">Marka</label>
+                <select class="form-select form-group" formControlName="brandId" aria-label="Default select example">
+                    <option *ngFor="let brand of brands" [value]=brand.brandId class="form-control" >{{brand.brandName}}</option>
+                  </select>
+                <label for="colorName">Renk</label>
+                <select class="form-select form-group" formControlName="colorId" aria-label="Default select example">
+                    <option *ngFor="let color of colors" [value]=color.colorId class="form-control" >{{color.colorName}}</option>
+                  </select>
+                <label for="modelYear">Uretim Yılı</label>
+                <div class="form-group mb-3">
+                    <input 
+                    type="number"
+                    formControlName="modelYear"
+                    id="modelYear"
+                    placeholder="Uretim Yılı"
+                    class="form-control"
+                    >
+                </div>
+                <label for="dailyPrice">Gunluk Ucret</label>
+                <div class="form-group mb-3">
+                    <input 
+                    type="number"
+                    formControlName="dailyPrice"
+                    id="dailyPrice"
+                    placeholder="Gunluk ucret"
+                    class="form-control"
+                    >
+                </div>
+                <label for="description">Açıklama</label>
+                <div class="form-group mb-3">
+                    <input 
+                    type="text"
+                    formControlName="description"
+                    id="description"
+                    placeholder="Açıklama"
+                    class="form-control"
+                    >
+                </div>
+            </form>
+            <button class="btn btn-primary" (click)="update()">Guncelle</button>
+        </div>
+        </div>
     </div>
-
-</div>
