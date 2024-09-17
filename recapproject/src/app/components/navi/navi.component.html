@@ -26,6 +26,19 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
         </ul>
+        <div *ngIf="!isLogin">
+          <button routerLink="login" class="btn btn-primary">Login</button>
+          <button routerLink="register" class="btn btn-primary">Register</button>
+        </div>
+        <div *ngIf="isLogin">
+          <h4>{{currentCustomerName}}</h4>
+        </div>
+        <div *ngIf="isLogin">
+          <button (click)="logout()" class="btn btn-primary">Çıkış yap</button>
+        </div>
+        <div *ngIf="isLogin">
+          <button class="btn btn-primary">Guncelle</button>
+        </div>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>

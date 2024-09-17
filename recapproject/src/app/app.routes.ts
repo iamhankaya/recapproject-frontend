@@ -7,17 +7,24 @@ import { PaymentDetailComponent } from './components/payment-detail/payment-deta
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
+import { LoginComponent } from './components/login/login.component';
+import { UserComponent } from './components/user/user.component';
+import { loginGuard } from './guards/login.guard';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
-    {path: "",component:CarComponent},
-    {path: "cars",component:CarComponent},
+    {path: "",component:CarComponent,canActivate:[loginGuard]},
+    {path: "cars",component:CarComponent,canActivate:[loginGuard]},
     {path: "cars/color/:colorId",component:CarComponent},
     {path: "cars/brand/:brandId",component:CarComponent},
-    {path: "cars/images/:carId",component:CarComponent},
-    {path:"rentals",component:RentalComponent},
-    {path:"credit-cards",component:CreditCardComponent},
-    {path:"payment-details",component:PaymentDetailComponent},
-    {path:"brands/add",component:BrandAddComponent},
-    {path:"cars/add",component:CarAddComponent},
-    {path:"colors/add",component:ColorAddComponent}
+    {path: "cars/images/:carId",component:CarComponent,canActivate:[loginGuard]},
+    {path:"rentals",component:RentalComponent,canActivate:[loginGuard]},
+    {path:"credit-cards",component:CreditCardComponent,canActivate:[loginGuard]},
+    {path:"payment-details",component:PaymentDetailComponent,canActivate:[loginGuard]},
+    {path:"brands/add",component:BrandAddComponent,canActivate:[loginGuard]},
+    {path:"cars/add",component:CarAddComponent,canActivate:[loginGuard]},
+    {path:"colors/add",component:ColorAddComponent,canActivate:[loginGuard]},
+    {path:"login",component:LoginComponent},
+    {path:"register",component:RegisterComponent},
+    {path:"users",component:UserComponent,canActivate:[loginGuard]}
 ];

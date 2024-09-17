@@ -1,0 +1,17 @@
+<div class="content col-md-12">
+    <div class="loginArea">
+        <form [formGroup]="loginForm">
+            <div class="form-floating mb-3">
+                <input formControlName="email" type="email" class="form-control" id="floatingInput"
+                    placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input formControlName="password" type="password" class="form-control" id="floatingPassword"
+                    placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+        </form>
+        <button class="btn btn-secondary" (click)="login()">Login</button>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="content col-md-12">
+    <div class="loginArea">
+        <form [formGroup]="registerForm">
+            <div class="form-floating mb-3">
+                <div class="form-floating mb-3">
+                    <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                        placeholder="Meto">
+                    <label for="firstName">First Name</label>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input formControlName="lastName" type="string" class="form-control" id="lastName"
+                    placeholder="Kaya">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input formControlName="email" type="email" class="form-control" id="email"
+                    placeholder="name@example.com">
+                <label for="email">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input formControlName="password" type="password" class="form-control" id="password"
+                    placeholder="Password">
+                <label for="password">Password</label>
+            </div>
+        </form>
+        <button class="btn btn-secondary" (click)="register()">Register</button>
+    </div>
